@@ -1,0 +1,27 @@
+PODS:
+  - ASCamera (0.1.0)
+  - Nimble (10.0.0)
+  - Quick (2.2.1)
+
+DEPENDENCIES:
+  - ASCamera (from `../`)
+  - Nimble (~> 10.0.0)
+  - Quick (~> 2.2.0)
+
+SPEC REPOS:
+  trunk:
+    - Nimble
+    - Quick
+
+EXTERNAL SOURCES:
+  ASCamera:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  ASCamera: 5343ce557a617f2e893889d8cf75912d0562ad14
+  Nimble: 5316ef81a170ce87baf72dd961f22f89a602ff84
+  Quick: f5754d69b7013f5864c29aab9ae6f0c79c5bc200
+
+PODFILE CHECKSUM: 3bd027ea4e6f7d038b8503574c3f63757b551a73
+
+COCOAPODS: 1.12.1

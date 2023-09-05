@@ -1,0 +1,22 @@
+{
+  "name": "ASCamera",
+  "version": "0.1.0",
+  "summary": "A short description of ASCamera.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/Angel/ASCamera",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "Angel": "angel@angelengineering.com"
+  },
+  "source": {
+    "git": "https://github.com/Angel/ASCamera.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "10.0"
+  },
+  "source_files": "ASCamera/Classes/**/*"
+}
