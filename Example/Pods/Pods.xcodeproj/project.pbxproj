@@ -19,11 +19,11 @@
 		0B3EED9DC07A09EBF68C02D14B98E014 /* Quick-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 60DF73375318419F11BEB13BB63F35B3 /* Quick-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0B7BD24FDF2877B7DAB8E15AB42ABDB7 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EBC8F300895E39EA0DF6D6B2B5E6BCD /* XCTest.framework */; };
 		0E398EF6297FFF6CC9BC74421BF1712D /* ContainElementSatisfying.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDBD9B9F36F7CD0FD15DE718212303D /* ContainElementSatisfying.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
-		176CAC2D2AA7A277004EE4DA /* ASBaseCameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 176CAC2C2AA7A277004EE4DA /* ASBaseCameraViewController.swift */; };
-		176CAC2F2AA7A289004EE4DA /* ASCameraButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 176CAC2E2AA7A289004EE4DA /* ASCameraButton.swift */; };
-		176CAC312AA7A298004EE4DA /* ASCameraDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 176CAC302AA7A298004EE4DA /* ASCameraDelegate.swift */; };
-		176CAC332AA7A2A2004EE4DA /* ASCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 176CAC322AA7A2A2004EE4DA /* ASCameraView.swift */; };
-		176CAC352AA7A2B0004EE4DA /* ASCameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 176CAC342AA7A2B0004EE4DA /* ASCameraViewController.swift */; };
+		176CAC3D2AA7BB98004EE4DA /* ASCameraButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 176CAC382AA7BB97004EE4DA /* ASCameraButton.swift */; };
+		176CAC3E2AA7BB98004EE4DA /* ASBaseCameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 176CAC392AA7BB97004EE4DA /* ASBaseCameraViewController.swift */; };
+		176CAC3F2AA7BB98004EE4DA /* ASCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 176CAC3A2AA7BB97004EE4DA /* ASCameraView.swift */; };
+		176CAC402AA7BB98004EE4DA /* ASCameraDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 176CAC3B2AA7BB98004EE4DA /* ASCameraDelegate.swift */; };
+		176CAC412AA7BB98004EE4DA /* ASCameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 176CAC3C2AA7BB98004EE4DA /* ASCameraViewController.swift */; };
 		19A8009537BCAD56435B2DDC620B29AA /* mach_excServer.h in Headers */ = {isa = PBXBuildFile; fileRef = C17D0C03EDECEC1C2E4312F449665003 /* mach_excServer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1B5648DECACC2C478440DD19516ADCC5 /* MatcherProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AA27D4E83D92CBFC0BF1D595195B3E /* MatcherProtocols.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		1C469C17A0E35E4508F74FEB1EDA586C /* DSL.m in Sources */ = {isa = PBXBuildFile; fileRef = 575BA84ABE043EC0F45DDB202FB31396 /* DSL.m */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
@@ -178,11 +178,11 @@
 		16C9158005ECCDD7E5E50D667F747869 /* AssertionRecorder.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AssertionRecorder.swift; path = Sources/Nimble/Adapters/AssertionRecorder.swift; sourceTree = "<group>"; };
 		172BB982BCA0427B9B42EABFD8731C26 /* BeginWith.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BeginWith.swift; path = Sources/Nimble/Matchers/BeginWith.swift; sourceTree = "<group>"; };
 		1742660FABDE1E33B17AAE145EF350A5 /* Nimble.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Nimble.release.xcconfig; sourceTree = "<group>"; };
-		176CAC2C2AA7A277004EE4DA /* ASBaseCameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASBaseCameraViewController.swift; sourceTree = "<group>"; };
-		176CAC2E2AA7A289004EE4DA /* ASCameraButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASCameraButton.swift; sourceTree = "<group>"; };
-		176CAC302AA7A298004EE4DA /* ASCameraDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASCameraDelegate.swift; sourceTree = "<group>"; };
-		176CAC322AA7A2A2004EE4DA /* ASCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASCameraView.swift; sourceTree = "<group>"; };
-		176CAC342AA7A2B0004EE4DA /* ASCameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASCameraViewController.swift; sourceTree = "<group>"; };
+		176CAC382AA7BB97004EE4DA /* ASCameraButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ASCameraButton.swift; path = ASCamera/Classes/ASCameraButton.swift; sourceTree = "<group>"; };
+		176CAC392AA7BB97004EE4DA /* ASBaseCameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ASBaseCameraViewController.swift; path = ASCamera/Classes/ASBaseCameraViewController.swift; sourceTree = "<group>"; };
+		176CAC3A2AA7BB97004EE4DA /* ASCameraView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ASCameraView.swift; path = ASCamera/Classes/ASCameraView.swift; sourceTree = "<group>"; };
+		176CAC3B2AA7BB98004EE4DA /* ASCameraDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ASCameraDelegate.swift; path = ASCamera/Classes/ASCameraDelegate.swift; sourceTree = "<group>"; };
+		176CAC3C2AA7BB98004EE4DA /* ASCameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ASCameraViewController.swift; path = ASCamera/Classes/ASCameraViewController.swift; sourceTree = "<group>"; };
 		188B3E03AB7BC3EDB7D3B86A18FA90E5 /* Await.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Await.swift; path = Sources/Nimble/Utils/Await.swift; sourceTree = "<group>"; };
 		190982FB8D45D7CB8E1D936E3B1DE260 /* Nimble-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Nimble-umbrella.h"; sourceTree = "<group>"; };
 		1B1FA1CC317946C74C02AE3EB5A589EB /* Nimble.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = Nimble.modulemap; sourceTree = "<group>"; };
@@ -388,13 +388,13 @@
 		11544BEEE40D49C4910215DB9EA11F7E /* ASCamera */ = {
 			isa = PBXGroup;
 			children = (
+				176CAC392AA7BB97004EE4DA /* ASBaseCameraViewController.swift */,
+				176CAC382AA7BB97004EE4DA /* ASCameraButton.swift */,
+				176CAC3B2AA7BB98004EE4DA /* ASCameraDelegate.swift */,
+				176CAC3A2AA7BB97004EE4DA /* ASCameraView.swift */,
+				176CAC3C2AA7BB98004EE4DA /* ASCameraViewController.swift */,
 				C94DE4346D3BEAC2412C7C490E44DCF1 /* Pod */,
 				A2ED41B4CF0204E723AD8A2EF52194C4 /* Support Files */,
-				176CAC2C2AA7A277004EE4DA /* ASBaseCameraViewController.swift */,
-				176CAC2E2AA7A289004EE4DA /* ASCameraButton.swift */,
-				176CAC302AA7A298004EE4DA /* ASCameraDelegate.swift */,
-				176CAC322AA7A2A2004EE4DA /* ASCameraView.swift */,
-				176CAC342AA7A2B0004EE4DA /* ASCameraViewController.swift */,
 			);
 			name = ASCamera;
 			path = ../..;
@@ -899,12 +899,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				176CAC2D2AA7A277004EE4DA /* ASBaseCameraViewController.swift in Sources */,
-				176CAC312AA7A298004EE4DA /* ASCameraDelegate.swift in Sources */,
-				176CAC332AA7A2A2004EE4DA /* ASCameraView.swift in Sources */,
-				176CAC352AA7A2B0004EE4DA /* ASCameraViewController.swift in Sources */,
+				176CAC3D2AA7BB98004EE4DA /* ASCameraButton.swift in Sources */,
+				176CAC3F2AA7BB98004EE4DA /* ASCameraView.swift in Sources */,
+				176CAC3E2AA7BB98004EE4DA /* ASBaseCameraViewController.swift in Sources */,
+				176CAC412AA7BB98004EE4DA /* ASCameraViewController.swift in Sources */,
 				56E30A34BF9D6C412F3192ED5F30C95E /* ASCamera-dummy.m in Sources */,
-				176CAC2F2AA7A289004EE4DA /* ASCameraButton.swift in Sources */,
+				176CAC402AA7BB98004EE4DA /* ASCameraDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
