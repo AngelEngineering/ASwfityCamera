@@ -23,7 +23,7 @@ ASCamera provides a camera module for taking photos and recording videos. Suppor
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Angel' => 'angel@angelengineering.com' }
-  s.source           = { :git => ' https://github.com/AngelEngineering/ASwfityCamera.git', :tag => s.version.to_s }
+  s.source           = { :git => 'https://github.com/AngelEngineering/ASwfityCamera.git', :tag => s.version.to_s }
   s.social_media_url = 'https://twitter.com/AngelEngineers'
   s.ios.deployment_target = '11.0'
   s.swift_version = '4.2'
