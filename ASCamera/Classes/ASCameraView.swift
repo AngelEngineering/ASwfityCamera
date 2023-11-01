@@ -1,14 +1,11 @@
 //
-//  ASwiftyCamera.swift
-//  ASwiftyCamera
-//
-//  Created by Angel  Dominguez on 8/25/23.
-//
+//  ASCamera.swift
+//  ASCamera
 
 import UIKit
 import AVFoundation
 
-public class ASCameraView: UIView {
+@objc public class ASCameraView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = UIColor.black
@@ -19,9 +16,7 @@ public class ASCameraView: UIView {
     }
     
     var videoPreviewLayer: AVCaptureVideoPreviewLayer {
-        // swiftlint:disable force_cast
         let previewlayer = layer as! AVCaptureVideoPreviewLayer
-        // swiftlint:enable force_cast
         return previewlayer
     }
     
@@ -38,4 +33,5 @@ public class ASCameraView: UIView {
         return AVCaptureVideoPreviewLayer.self
     }
 }
+
 

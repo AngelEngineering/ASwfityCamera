@@ -1,15 +1,11 @@
 //
 //  ASwiftyCameraViewController.swift
 //  ASwiftyCamera
-//
-//  Created by Angel  Dominguez on 8/25/23.
-//
 
-import UIKit
 import AVFoundation
+import UIKit
 
-open class ASCameraViewController: ASBaseCameraViewController {
-    
+@objc open class ASCameraViewController: ASBaseCameraViewController {
     // Variable for storing previous zoom scale
     private var startingZoomScale = CGFloat(1.0)
     // UIView for front facing flash
@@ -30,15 +26,15 @@ open class ASCameraViewController: ASBaseCameraViewController {
     private var shouldCreateTimer = false
     
     // Public access to Pinch Gesture
-    private(set) public var pinchGestureRecognizer: UIPinchGestureRecognizer!
+    public private(set) var pinchGestureRecognizer: UIPinchGestureRecognizer!
     // Public access to tap Gesture
-    private(set) public var singleTapGestureRecognizer: UITapGestureRecognizer!
+    public private(set) var singleTapGestureRecognizer: UITapGestureRecognizer!
     // Public access to tap Gesture
-    private(set) public var doubleTapGestureRecognizer: UITapGestureRecognizer!
+    public private(set) var doubleTapGestureRecognizer: UITapGestureRecognizer!
     //
-    private(set) public var isFlashLocked = false
+    public private(set) var isFlashLocked = false
     //
-    private(set) public var isZoomLocked = false
+    public private(set) var isZoomLocked = false
     
     // Sets whether flash is enabled for video capture
     public var isFlashEnabled = false
@@ -76,12 +72,13 @@ open class ASCameraViewController: ASBaseCameraViewController {
     public var photoCaptureThreshold = 2.0 {
         willSet { assert(newValue > 0, "[asCamera]: photoCaptureThreshold should be positive") }
     }
+
     //
     public var stopsRecordingOnTouchUp = true
     // distance in points for the full zoom range (e.g. min to max), could be UIScreen.main.bounds.height
     public var zoomPanMaxLength: CGFloat = UIScreen.main.bounds.height
     
-    public override init() {
+    override public init() {
         super.init()
         
         self.addGestureRecognizers()
@@ -94,34 +91,34 @@ open class ASCameraViewController: ASBaseCameraViewController {
         self.captureView.videoPreviewLayer.connection?.videoOrientation = orientation
     }
     
-    required public init?(coder aDecoder: NSCoder) {
-        super.init();
+    public required init?(coder aDecoder: NSCoder) {
+        super.init()
 //        fatalError("init(coder:) has not been implemented")
     }
 }
 
-extension ASCameraViewController {
-    public override func startRecording() {
+@objc public extension ASCameraViewController {
+    override func startRecording() {
         UIApplication.shared.isIdleTimerDisabled = true
         super.startRecording()
     }
     
-    public override func stopRecording() {
+    override func stopRecording() {
         super.stopRecording()
         UIApplication.shared.isIdleTimerDisabled = false
     }
     
-    public override func cancelRecording() {
+    override func cancelRecording() {
         super.cancelRecording()
         UIApplication.shared.isIdleTimerDisabled = false
     }
     
-    public override func capturePhoto(after deadline: TimeInterval = 0) {
+    override func capturePhoto(after deadline: TimeInterval = 0) {
         let newDeadline = self.isFlashEnabled && deadline == 0 ? 1.2 : deadline
         super.capturePhoto(after: newDeadline)
     }
     
-    public func focus(at point: CGPoint) {
+    func focus(at point: CGPoint) {
         let screenSize = captureView.bounds.size
         let xPoint = point.y / screenSize.height
         let yPoint = 1.0 - point.x / screenSize.width
@@ -148,7 +145,7 @@ extension ASCameraViewController {
         }
     }
     
-    public func zoom(to factor: CGFloat, withRate rate: Float = Float.greatestFiniteMagnitude) {
+    func zoom(to factor: CGFloat, withRate rate: Float = Float.greatestFiniteMagnitude) {
         guard let videoDevice = captureDevice, !self.isZoomLocked else { return }
         do {
             try videoDevice.lockForConfiguration()
@@ -167,44 +164,48 @@ extension ASCameraViewController {
     }
     
     /// Freezes the live camera preview layer.
-    public func freezePreview() {
+    func freezePreview() {
         if let previewConnection = self.captureView.videoPreviewLayer.connection {
             previewConnection.isEnabled = false
         }
     }
     
     /// Un-freezes the live camera preview layer.
-    public func unfreezePreview() {
+    func unfreezePreview() {
         if let previewConnection = self.captureView.videoPreviewLayer.connection {
             previewConnection.isEnabled = true
         }
     }
     
-    public func flashPreview() {
+    func flashPreview() {
         self.captureView.videoPreviewLayer.opacity = 0
         UIView.animate(withDuration: 0.35) {
             self.captureView.videoPreviewLayer.opacity = 1
         }
     }
+
     /// Locks the flash at it's current state.
-    public func lockFlash() {
+    func lockFlash() {
         self.isFlashLocked = true
     }
+
     /// Unlocks the flash and allows variable states.
-    public func unlockFlash() {
+    func unlockFlash() {
         self.isFlashLocked = false
     }
+
     /// Locks the zoom at it's current scale.
-    public func lockZoom() {
+    func lockZoom() {
         self.isZoomLocked = true
     }
+
     /// Unlocks the zoom and allows variable change in scale.
-    public func unlockZoom() {
+    func unlockZoom() {
         self.isZoomLocked = false
     }
 }
 
-extension ASCameraViewController {
+@objc extension ASCameraViewController {
     override open func handleSessionWasInterrupted(_ notification: Notification) {
         super.handleSessionWasInterrupted(notification)
         
@@ -225,11 +226,11 @@ extension ASCameraViewController {
     }
 }
 
-internal extension ASCameraViewController {
+@objc extension ASCameraViewController {
     override func willBeginRecordingVideo() {
         super.willBeginRecordingVideo()
         
-        //flip video output if front facing camera is selected
+        // flip video output if front facing camera is selected
         if self.cameraLocation == .front {
             let connection = self.videoOutput?.connection(with: AVMediaType.video)
             if connection?.isVideoMirroringSupported == true {
@@ -237,11 +238,11 @@ internal extension ASCameraViewController {
             }
         }
         
-        if self.cameraLocation == .back && self.isFlashEnabled {
+        if self.cameraLocation == .back, self.isFlashEnabled {
             self.setFlash(to: .on)
         }
         
-        if self.cameraLocation == .front && self.isFlashEnabled {
+        if self.cameraLocation == .front, self.isFlashEnabled {
             self.addFrontCameraFlashView()
         }
         
@@ -289,7 +290,7 @@ internal extension ASCameraViewController {
     
     override func didSwitchCamera() {
         super.didSwitchCamera()
-        //flip video output if front facing camera is selected
+        // flip video output if front facing camera is selected
         if self.cameraLocation == .front {
             let connection = self.videoOutput?.connection(with: AVMediaType.video)
             if connection?.isVideoMirroringSupported == true {
@@ -338,7 +339,7 @@ internal extension ASCameraViewController {
     override func willCaptureImage() {
         super.willCaptureImage()
         
-        //flip video output if front facing camera is selected
+        // flip video output if front facing camera is selected
         if self.cameraLocation == .front {
             let connection = self.videoOutput?.connection(with: AVMediaType.video)
             if connection?.isVideoMirroringSupported == true {
@@ -346,11 +347,11 @@ internal extension ASCameraViewController {
             }
         }
         
-        if self.cameraLocation == .back && self.isFlashEnabled {
+        if self.cameraLocation == .back, self.isFlashEnabled {
             self.setFlash(to: .on)
         }
         
-        if self.cameraLocation == .front && self.isFlashEnabled {
+        if self.cameraLocation == .front, self.isFlashEnabled {
             self.addFrontCameraFlashView()
         }
         
@@ -385,7 +386,7 @@ internal extension ASCameraViewController {
     }
 }
 
-extension ASCameraViewController {
+@objc extension ASCameraViewController {
     private func setFlash(to torchMode: AVCaptureDevice.TorchMode) {
         guard let device = self.captureDevice,
               device.hasTorch, !self.isFlashLocked else { return }
@@ -401,85 +402,86 @@ extension ASCameraViewController {
     }
     
     private func addFrontCameraFlashView() {
-        guard flashView == nil, !self.isFlashLocked else { return }
-        flashView = UIView(frame: view.frame)
-        flashView?.backgroundColor = UIColor.white
-        flashView?.alpha = 0.65
-        captureView.addSubview(flashView!)
+        guard self.flashView == nil, !self.isFlashLocked else { return }
+        self.flashView = UIView(frame: view.frame)
+        self.flashView?.backgroundColor = UIColor.white
+        self.flashView?.alpha = 0.65
+        captureView.addSubview(self.flashView!)
         self.previousScreenBrightness = UIScreen.main.brightness
         UIScreen.main.brightness = 1.0
     }
     
     private func removeFrontCameraFlashView() {
-        guard flashView != nil, !self.isFlashLocked else { return }
+        guard self.flashView != nil, !self.isFlashLocked else { return }
         let previousScreenBrightness = self.previousScreenBrightness
         UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveEaseInOut, animations: { [weak self] in
             self?.flashView?.alpha = 0.0
             UIScreen.main.brightness = previousScreenBrightness
-        }, completion: { [weak self] (_) in
+        }, completion: { [weak self] _ in
             self?.flashView?.removeFromSuperview()
             self?.flashView = nil
         })
     }
 }
 
-extension ASCameraViewController {
+@objc extension ASCameraViewController {
     @objc private func handlePinch(_ sender: UIPinchGestureRecognizer) {
         guard isSessionRunning else { return }
         guard let videoDevice = captureDevice else { return }
         switch sender.state {
         case .began:
-            startingZoomScale = videoDevice.videoZoomFactor
+            self.startingZoomScale = videoDevice.videoZoomFactor
             fallthrough
         case .changed, .ended:
             let scale = min(maxZoomScale, max(minZoomScale, startingZoomScale * sender.scale))
             let adjustedScale = min(videoDevice.activeFormat.videoMaxZoomFactor, max(1.0, scale))
-            zoom(to: adjustedScale)
+            self.zoom(to: adjustedScale)
         default: break
         }
     }
     
     @objc private func handleSingleTap(_ sender: UITapGestureRecognizer) {
-        guard isSessionRunning && sender.state == .recognized else { return }
+        guard isSessionRunning, sender.state == .recognized else { return }
         let tapPoint = sender.location(in: captureView)
         self.focus(at: tapPoint)
     }
     
     @objc private func doubleTapGesture(_ sender: UITapGestureRecognizer) {
-        guard isSessionRunning && sender.state == .recognized else { return }
+        guard isSessionRunning, sender.state == .recognized else { return }
         self.switchCamera()
     }
     
     private func addGestureRecognizers() {
-        pinchGestureRecognizer = UIPinchGestureRecognizer(target: self, action: #selector(handlePinch(_:)))
-        pinchGestureRecognizer.delegate = self
-        view.addGestureRecognizer(pinchGestureRecognizer)
+        self.pinchGestureRecognizer = UIPinchGestureRecognizer(target: self, action: #selector(self.handlePinch(_:)))
+        self.pinchGestureRecognizer.delegate = self
+        view.addGestureRecognizer(self.pinchGestureRecognizer)
         
-        singleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleSingleTap(_:)))
-        singleTapGestureRecognizer.numberOfTapsRequired = 1
-        singleTapGestureRecognizer.delegate = self
-        view.addGestureRecognizer(singleTapGestureRecognizer)
+        self.singleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.handleSingleTap(_:)))
+        self.singleTapGestureRecognizer.numberOfTapsRequired = 1
+        self.singleTapGestureRecognizer.delegate = self
+        view.addGestureRecognizer(self.singleTapGestureRecognizer)
         
-        doubleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(doubleTapGesture(_:)))
-        doubleTapGestureRecognizer.numberOfTapsRequired = 2
-        doubleTapGestureRecognizer.delegate = self
-        view.addGestureRecognizer(doubleTapGestureRecognizer)
+        self.doubleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.doubleTapGesture(_:)))
+        self.doubleTapGestureRecognizer.numberOfTapsRequired = 2
+        self.doubleTapGestureRecognizer.delegate = self
+        view.addGestureRecognizer(self.doubleTapGestureRecognizer)
         
-        singleTapGestureRecognizer.require(toFail: doubleTapGestureRecognizer)
+        self.singleTapGestureRecognizer.require(toFail: self.doubleTapGestureRecognizer)
     }
-    
 }
+
 // Button related stuff
-extension ASCameraViewController {
+@objc extension ASCameraViewController {
     public func register(_ button: ASCameraButton) {
         let longPressGestureRecognizer = LongPressGestureRecognizer()
-        longPressGestureRecognizer.addTarget(self, action: #selector(handleButtonZoomPan(_:)))
-        longPressGestureRecognizer.addTarget(self, action: #selector(handleButtonLongPress(_:)))
+        longPressGestureRecognizer.addTarget(self, action: #selector(self.handleButtonZoomPan(_:)))
+        longPressGestureRecognizer.addTarget(self, action: #selector(self.handleButtonLongPress(_:)))
         longPressGestureRecognizer.minimumPressDuration = 0.0
         longPressGestureRecognizer.delegate = self
         button.addGestureRecognizer(longPressGestureRecognizer)
         button.longPressGestureRecognizer = longPressGestureRecognizer
     }
+
     // Please Keep in mind that this function is called first by the gesture recognizer
     @objc private func handleButtonZoomPan(_ sender: LongPressGestureRecognizer) {
         guard self.isPanToZoomEnabled else { return }
@@ -503,7 +505,7 @@ extension ASCameraViewController {
             
             let translation = sender.translation(in: nil)
             let mulitiplier: CGFloat = min(max(1.0, self.maxZoomScale), videoDevice.activeFormat.videoMaxZoomFactor)
-            let senderScale = (-1 * translation.y / self.zoomPanMaxLength ) * mulitiplier//+ 1.0
+            let senderScale = (-1 * translation.y / self.zoomPanMaxLength) * mulitiplier // + 1.0
             let scale = min(self.maxZoomScale, max(self.minZoomScale, self.startingZoomScale * senderScale))
             let adjustedScale = min(videoDevice.activeFormat.videoMaxZoomFactor, max(1.0, scale))
             self.zoom(to: adjustedScale)
@@ -518,6 +520,7 @@ extension ASCameraViewController {
     
     // Please Keep in mind that this function is called second by the gesture recognizer
     @objc fileprivate func handleButtonLongPress(_ sender: UILongPressGestureRecognizer) {
+        print("sender.state",sender.state)
         switch sender.state {
         case .began:
             if !self.shouldStartWritingSession {
@@ -531,28 +534,29 @@ extension ASCameraViewController {
                 return
             }
             
-            if self.timePassed <= self.photoCaptureThreshold {
-                // Take photo and discard Video
-                self.capturePhoto()
-                
-                let shouldUnlockFlash = self.isFlashLocked == false
-                let shouldUnlockZoom = self.isZoomLocked == false
-                self.lockFlash()
-                self.lockZoom()
-                
-                self.cancel()
-                
-                self.executeAsync {
-                    DispatchQueue.main.async { [weak self] in
-                        if shouldUnlockFlash {
-                            self?.unlockFlash()
-                        }
-                        if shouldUnlockZoom {
-                            self?.unlockZoom()
-                        }
-                    }
-                }
-            } else if self.stopsRecordingOnTouchUp && self.isRecording {
+//            if self.timePassed <= self.photoCaptureThreshold {
+//                // Take photo and discard Video
+//                self.capturePhoto()
+//                
+//                let shouldUnlockFlash = self.isFlashLocked == false
+//                let shouldUnlockZoom = self.isZoomLocked == false
+//                self.lockFlash()
+//                self.lockZoom()
+//                
+//                self.cancel()
+//                
+//                self.executeAsync {
+//                    DispatchQueue.main.async { [weak self] in
+//                        if shouldUnlockFlash {
+//                            self?.unlockFlash()
+//                        }
+//                        if shouldUnlockZoom {
+//                            self?.unlockZoom()
+//                        }
+//                    }
+//                }
+//            } else
+            if self.stopsRecordingOnTouchUp, self.isRecording {
                 self.stop()
             } else if self.shouldStop {
                 self.stop()
@@ -588,9 +592,9 @@ extension ASCameraViewController {
     
     @objc private func updateTimer() {
         self.timePassed += 0.1
-        delegate?.asCamera?(self, didUpdateRecordingDurationTo: self.timePassed)
+        self.delegate?.asCamera?(self, didUpdateRecordingDurationTo: self.timePassed)
         
-        if timePassed >= maximumVideoDuration {
+        if self.timePassed >= self.maximumVideoDuration {
             DispatchQueue.main.async { [weak self] in
                 self?.shouldIgnore = true
                 self?.stop()
@@ -602,29 +606,30 @@ extension ASCameraViewController {
         guard self.shouldCreateTimer else { return }
         self.timer = Timer.scheduledTimer(
             timeInterval: self.videoTimeInterval, target: self,
-            selector: #selector(updateTimer), userInfo: nil, repeats: true)
+            selector: #selector(self.updateTimer), userInfo: nil, repeats: true)
     }
     
     private func invalidateTimer() {
         self.timer?.invalidate()
         self.timer = nil
         self.timePassed = 0.0
-        delegate?.asCamera?(self, didUpdateRecordingDurationTo: self.timePassed)
+        self.delegate?.asCamera?(self, didUpdateRecordingDurationTo: self.timePassed)
     }
 }
 
-extension ASCameraViewController: UIGestureRecognizerDelegate {
+@objc extension ASCameraViewController: UIGestureRecognizerDelegate {
     open func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        if gestureRecognizer == pinchGestureRecognizer {
-            return isPinchToZoomEnabled
+        if gestureRecognizer == self.pinchGestureRecognizer {
+            return self.isPinchToZoomEnabled
         }
         
-        if gestureRecognizer == singleTapGestureRecognizer {
-            return isTapToFocusEnabled
+        if gestureRecognizer == self.singleTapGestureRecognizer {
+            return self.isTapToFocusEnabled
         }
         
-        if gestureRecognizer == doubleTapGestureRecognizer {
-            return isDoubleTapToSwitchCameraEnabled
+        if gestureRecognizer == self.doubleTapGestureRecognizer {
+            print("doubletap seen")
+            return self.isDoubleTapToSwitchCameraEnabled
         }
         
         if gestureRecognizer is UILongPressGestureRecognizer && gestureRecognizer.view is ASCameraButton {
@@ -644,27 +649,30 @@ extension ASCameraViewController: UIGestureRecognizerDelegate {
     
     open func gestureRecognizer(
         _ gestureRecognizer: UIGestureRecognizer,
-        shouldRequireFailureOf otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-            return false
-        }
+        shouldRequireFailureOf otherGestureRecognizer: UIGestureRecognizer) -> Bool
+    {
+        return false
+    }
     
     open func gestureRecognizer(
         _ gestureRecognizer: UIGestureRecognizer,
-        shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-            return false
-        }
+        shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool
+    {
+        return false
+    }
     
     open func gestureRecognizer(
         _ gestureRecognizer: UIGestureRecognizer,
-        shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-            return false
-        }
+        shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool
+    {
+        return false
+    }
 }
 
 private class LongPressGestureRecognizer: UILongPressGestureRecognizer {
     override var state: UIGestureRecognizer.State {
         didSet {
-            if state == .began {
+            if self.state == .began {
                 self.startingLocation = self.location(in: self.view)
             }
         }
@@ -682,4 +690,3 @@ private class LongPressGestureRecognizer: UILongPressGestureRecognizer {
         self.startingLocation = self.location(in: self.view)
     }
 }
-

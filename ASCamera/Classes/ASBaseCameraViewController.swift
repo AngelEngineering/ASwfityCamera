@@ -1,9 +1,6 @@
 //
 //  ASBaseCameraViewController.swift
 //  ASCamera
-//
-//  Created by Angel on 9/5/23.
-//
 
 import AVFoundation
 import UIKit
@@ -11,7 +8,7 @@ import UIKit
 public typealias ASCamera = ASBaseCameraViewController
 public typealias ASCameraLocation = AVCaptureDevice.Position
 
-open class ASBaseCameraViewController: UIViewController {
+@objc open class ASBaseCameraViewController: UIViewController {
     
     private let sessionPrimaryQueueIdentifier = "ASCamera_sessionPrimaryQueue"
     private let sessionPrimaryQueueSpecificKey = DispatchSpecificKey<()>()
@@ -330,7 +327,11 @@ extension ASBaseCameraViewController {
     // MARK: Public Functions
     /// Starts the AVCaptureSession.
     func beginSession() {
-        self.session.startRunning()
+//        DispatchQueue.global(qos: .background).async {
+//        DispatchQueue.main.async {
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.session.startRunning()
+        }
     }
     
     func endSession() {
@@ -529,7 +530,8 @@ extension ASBaseCameraViewController {
     }
     /// Switches the camera from front to back and vice versa.
     func switchCamera() {
-        guard isSessionRunning && !isSwitchingCameras else { return }
+        //isSessionRunning && 
+        guard !isSwitchingCameras else { return }
         self.isSwitchingCameras = true
         let zoomScale = lastZoomScale
         

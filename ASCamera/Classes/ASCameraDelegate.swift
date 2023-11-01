@@ -1,9 +1,6 @@
 //
 //  ASCameraDelegate.swift
 //  ASCamera
-//
-//  Created by Angel on 9/5/23.
-//
 
 import AVFoundation
 import UIKit
